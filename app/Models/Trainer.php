@@ -11,6 +11,18 @@ class Trainer extends Model
 
     protected $table = 'trainers';
 
+    protected $fillable = [
+        'email ',
+        'password',
+        'first_name',
+        'last_name',
+        'phone',
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
+
     public function role() {
         return $this->belongsTo(Roles::class);
     }

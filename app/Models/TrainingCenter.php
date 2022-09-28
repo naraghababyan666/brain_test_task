@@ -11,6 +11,19 @@ class TrainingCenter extends Model
 
     protected $table = 'training_centers';
 
+    protected $fillable = [
+        'email ',
+        'password',
+        'first_name',
+        'last_name',
+        'phone',
+        'tax_identity_number',
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
+
     public function role() {
         return $this->belongsTo(Roles::class);
     }
