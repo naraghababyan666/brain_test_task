@@ -12,7 +12,7 @@ class Trainer extends Model
     protected $table = 'trainers';
 
     protected $fillable = [
-        'email ',
+        'email',
         'password',
         'first_name',
         'last_name',

@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Student extends Model
+class Student extends Model implements JWTSubject
 {
-    use HasFactory;
+    use HasFactory, Notifiable, Authenticatable;
 
     protected $table = 'students';
 
     protected $fillable = [
-        'email ',
+        'email',
         'password',
         'first_name',
         'last_name',
@@ -23,6 +26,11 @@ class Student extends Model
         'password',
     ];
 
+    protected $guarded = [];
+
+    public function users(){
+        return $this->belongsTo(Users::class);
+    }
 
     public function role() {
         return $this->belongsTo(Roles::class);

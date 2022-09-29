@@ -14,8 +14,12 @@ class UsersWithRole extends Model
         'role_id',
     ];
 
+    public function users(){
+        return $this->hasMany(Users::class);
+    }
+
     public function role() {
-        return $this->hasOne(Roles::class);
+        return $this->hasMany(Roles::class);
     }
 
 

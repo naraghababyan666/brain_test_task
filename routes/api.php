@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\StudentController;
+use \App\Http\Controllers\TrainerController;
+use \App\Http\Controllers\TrainingCenterController;
+use \App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +24,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/pass-check', function () {
     return \Illuminate\Support\Facades\Hash::make('admin');
+});
+
+Route::post('/register/student', [StudentController::class, 'register']);
+Route::post('/register/trainer', [TrainerController::class, 'register']);
+Route::post('/register/training-center', [TrainingCenterController::class, 'register']);
+
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::group(['middleware' => ['training.center', jwt]], function () {
+    Route::post('/create/trainer', [TrainingCenterController::class, 'createTrainer']);
 });
