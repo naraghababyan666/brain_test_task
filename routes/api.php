@@ -33,6 +33,6 @@ Route::post('/register/training-center', [TrainingCenterController::class, 'regi
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::group(['middleware' => ['training.center', jwt]], function () {
+Route::group(['middleware' => ['jwt.verify', 'training.center']], function () {
     Route::post('/create/trainer', [TrainingCenterController::class, 'createTrainer']);
 });

@@ -19,7 +19,7 @@ class UsersWithRole extends Model
     }
 
     public function role() {
-        return $this->hasMany(Roles::class);
+        return $this->belongsTo(Roles::class);
     }
 
 
