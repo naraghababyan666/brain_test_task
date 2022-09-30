@@ -14,17 +14,19 @@ class TrainingCenter extends Model implements JWTSubject
 
     protected $fillable = [
         'email',
-        'password',
         'first_name',
         'last_name',
         'phone',
         'tax_identity_number',
+        'user_id'
     ];
 
     protected $hidden = [
-        'password',
     ];
 
+    public function users(){
+        return $this->belongsTo(Users::class);
+    }
     public function role() {
         return $this->belongsTo(Roles::class);
     }

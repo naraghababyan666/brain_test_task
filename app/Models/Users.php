@@ -21,12 +21,26 @@ class Users extends Authenticatable implements JWTSubject
     ];
 
     protected $hidden = [
-        'password'
+        'password',
+        'table'
     ];
 
     public function userswithrole() {
-        return $this->belongsTo(UsersWithRole::class);
+        return $this->hasOne(UsersWithRole::class,'role_id', 'id');
     }
+
+    public function student(){
+        return $this->hasOne(Student::class);
+    }
+
+    public function trainer(){
+        return $this->hasOne(Trainer::class, 'user_id', 'id');
+    }
+
+    public function trainingcenter(){
+        return $this->hasOne(TrainingCenter::class);
+    }
+
 //
 //    public function role(){
 //        return $this->hasMany(Roles::class);

@@ -18,10 +18,12 @@ class TrainingCenterMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $id = auth()->user()['id'];
-        $role = UsersWithRole::where('user_id', $id)->with('role')->first();
-        if(strtolower($role->role['name']) === 'training_center'){
-            return $next($request);
+        $user = UsersWithRole::where('user_id', auth()->user()['id'])->with('role')->first();
+        if($user){
+            if($user->role[0]['id'] === 3){
+                return $next($request);
+            }
+            return response()->json('Permission denied');
         }
         return response()->json('Permission denied');
     }

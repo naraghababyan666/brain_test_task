@@ -16,14 +16,13 @@ class Student extends Model implements JWTSubject
 
     protected $fillable = [
         'email',
-        'password',
         'first_name',
         'last_name',
         'phone',
+        'user_id'
     ];
 
     protected $hidden = [
-        'password',
     ];
 
     protected $guarded = [];
@@ -32,9 +31,9 @@ class Student extends Model implements JWTSubject
         return $this->belongsTo(Users::class);
     }
 
-    public function role() {
-        return $this->belongsTo(Roles::class);
-    }
+//    public function role() {
+//        return $this->belongsTo(Roles::class);
+//    }
 
     public function getJWTIdentifier() {
         return $this->getKey();

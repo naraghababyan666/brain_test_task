@@ -14,7 +14,7 @@ class StudentController extends Controller
 {
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|max:100|unique:students',
+            'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:2',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
@@ -23,21 +23,22 @@ class StudentController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
-        $user = Student::create([
+        $user = Users::create([
             'email' => $validator->validated()['email'],
             'password' => Hash::make($validator->validated()['password']),
+            'table' => 'student'
+        ]);
+
+        $allUsersTable = Student::create([
+            'email' => $validator->validated()['email'],
             'first_name' => $validator->validated()['first_name'],
             'last_name' => $validator->validated()['last_name'],
             'phone' => $validator->validated()['phone'],
+            'user_id' => $user->id
         ]);
 
-        $allUsersTable = Users::create([
-           'email' => $validator->validated()['email'],
-           'password' => Hash::make($validator->validated()['password']),
-           'table' => 'student'
-        ]);
         UsersWithRole::create([
-            'user_id' => $allUsersTable->id,
+            'user_id' => $user->id,
             'role_id' => 1
         ]);
         return response()->json([

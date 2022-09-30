@@ -29,10 +29,13 @@ Route::post('/pass-check', function () {
 Route::post('/register/student', [StudentController::class, 'register']);
 Route::post('/register/trainer', [TrainerController::class, 'register']);
 Route::post('/register/training-center', [TrainingCenterController::class, 'register']);
-
-
 Route::post('/login', [AuthController::class, 'login']);
+
 
 Route::group(['middleware' => ['jwt.verify', 'training.center']], function () {
     Route::post('/create/trainer', [TrainingCenterController::class, 'createTrainer']);
+    Route::delete('/delete/trainer/{id}', [TrainingCenterController::class, 'deleteTrainer']);
+    Route::post('/update/trainer/{id}', [TrainingCenterController::class, 'updateTrainer']);
+    Route::post('/trainers/list', [TrainingCenterController::class, 'listTrainers']);
+    Route::post('/trainer/{id}', [TrainingCenterController::class, 'currentTrainer']);
 });

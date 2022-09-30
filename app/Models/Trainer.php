@@ -13,16 +13,18 @@ class Trainer extends Model
 
     protected $fillable = [
         'email',
-        'password',
         'first_name',
         'last_name',
         'phone',
+        'user_id'
     ];
 
     protected $hidden = [
-        'password',
     ];
 
+    public function users(){
+        return $this->belongsTo(Users::class, 'id', 'user_id');
+    }
     public function role() {
         return $this->belongsTo(Roles::class);
     }

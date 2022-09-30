@@ -16,11 +16,12 @@ return new class extends Migration
         Schema::create('training_centers', function (Blueprint $table) {
             $table->id();
             $table->string('email')->unique();
-            $table->string('password');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone');
             $table->string('tax_identity_number');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
