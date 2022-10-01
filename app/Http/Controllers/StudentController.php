@@ -29,7 +29,7 @@ class StudentController extends Controller
             'table' => 'student'
         ]);
 
-        $allUsersTable = Student::create([
+        Student::create([
             'email' => $validator->validated()['email'],
             'first_name' => $validator->validated()['first_name'],
             'last_name' => $validator->validated()['last_name'],

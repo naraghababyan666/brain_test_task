@@ -116,19 +116,25 @@ class TrainingCenterController extends Controller
     }
 
     public function listTrainers(){
-        $users = Users::with('userswithrole')->get();
+        $users = Users::with( 'trainer')->get();
         $trainers = [];
         foreach ($users as $user){
             if($user['userswithrole']['role_id'] === 2){
                 $trainers[] = $user;
             }
         }
-        return response()->json(['trainers' => $trainers]);
+        if($trainers !== []){
+            return response()->json(['trainers' => $trainers]);
+        }
+        return response()->json(['fail' => 'Trainers not found!']);
     }
 
     public function currentTrainer($id){
         $trainer = Trainer::where('user_id', $id)->first();
-        return response()->json(['trainer' => $trainer]);
+        if($trainer !== null){
+            return response()->json(['trainer' => $trainer]);
+        }
+        return response()->json(['fail' => 'Trainer not found!']);
     }
 
 }
