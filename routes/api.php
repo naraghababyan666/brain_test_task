@@ -6,6 +6,7 @@ use \App\Http\Controllers\StudentController;
 use \App\Http\Controllers\TrainerController;
 use \App\Http\Controllers\TrainingCenterController;
 use \App\Http\Controllers\AuthController;
+use \App\Http\Controllers\LogicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,3 +40,5 @@ Route::group(['middleware' => ['jwt.verify', 'training.center']], function () {
     Route::post('/trainers/list', [TrainingCenterController::class, 'listTrainers']);
     Route::post('/trainer/{id}', [TrainingCenterController::class, 'currentTrainer']);
 });
+
+Route::post('/finder', [LogicController::class, 'phpFilesFinder']);

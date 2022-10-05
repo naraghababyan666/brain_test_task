@@ -2,7 +2,8 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\UsersWithRole;
+use App\Enums\UserRoles;
+use App\Models\Users;
 use Closure;
 use http\Env\Response;
 use Illuminate\Http\Request;
@@ -18,13 +19,10 @@ class TrainingCenterMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = UsersWithRole::where('user_id', auth()->user()['id'])->with('role')->first();
-        if($user){
-            if($user->role[0]['id'] === 3){
-                return $next($request);
-            }
-            return response()->json('Permission denied');
+        if( (int) auth()->user()['role'] === UserRoles::TRAINING_CENTER){
+            return $next($request);
         }
         return response()->json('Permission denied');
+
     }
 }

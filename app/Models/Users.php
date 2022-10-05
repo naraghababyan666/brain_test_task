@@ -14,20 +14,23 @@ class Users extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+
+
     protected $fillable = [
         'email',
-        'table',
-        'password'
+        'password',
+        'role'
     ];
 
     protected $hidden = [
         'password',
-        'table'
     ];
 
-    public function userswithrole() {
-        return $this->hasOne(UsersWithRole::class,'role_id', 'id');
-    }
+    /**
+     * @var \App\Enums\UserRoles
+     */
+    public $role;
+
 
     public function student(){
         return $this->hasOne(Student::class);
